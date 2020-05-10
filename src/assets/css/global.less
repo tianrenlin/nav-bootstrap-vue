@@ -1,0 +1,64 @@
+
+@import './common.less';
+body{
+    background: #08262E;
+    background: linear-gradient(#000000 0%, #000203 80%);
+    background-size: 100%;
+    // 移动端活动卡顿问题
+    -webkit-overflow-scrolling: touch;
+    // overflow-x: hidden;
+}
+ul {
+    list-style: none;
+}
+// a链接处理
+a{text-decoration: none;}
+a:hover{text-decoration: none;}
+// 处理row右margin多出出现x滚动条
+.row{margin:0;}
+// alert样式重设padding
+.alert{padding: 0.25rem 1.25rem;}
+.alert-dismissible .close{
+    padding: 0.25rem 1.25rem;
+}
+// 去掉大导航的圆角
+.list-group-item{
+    color: #0D7CB6;
+    text-align: center;
+    border-radius: 0!important;
+    background:none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    span{padding-left: 6px;font-weight: 700;}
+    svg,span{opacity: 0.65;}
+}
+// 标题弹出框
+.header-class-day{color: @blue;background: #fff;}
+.header-class-night{color: @blue;background: #000;}
+.dialog-class{background: @blue;border-radius: 3px;}
+.body-class-day{background:#fff;color: #007ACC;}
+.body-class-night{background:#000;color: #007ACC;}
+.dilog-input input{color: @blue;border:1px solid @blue;background: none;}
+// 头部导航右侧下拉样式
+.b-nav-dropdown{
+    a{
+        color: #4689BF!important;
+        font-weight: 600;
+    }
+    .dropdown-menu{border-color: @blue;background: none;}
+}
+// 更多搜索卡片样式
+.card{background: none;}
+.border-info{border-color: @blue;}
+.border-secondary{border-color: @blue;}
+.swiper .close svg{color: @blue;}
+// 弹出警告框
+.alert-danger{color: @red;border-color: @red;background: none!important;}
+@media screen and (max-width: 576px){
+    // 调整每一项的网页链接的高度
+    .nav_list ul{
+      height: 75px!important;
+    }
+}
