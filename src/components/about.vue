@@ -31,7 +31,7 @@ import update from '@/assets/data/updateInfo.json'
                     update:'更新说明'
                 },
                 info:[],
-                variant:['primary','secondary','success','danger','warning','info','light','dark'],
+                variant:['primary','secondary','success','danger','warning','info','dark'],
                 description:'这个项目很久之前都想做了，之前做了个很简单的，想纯用js不借助框架来写。该项目陆陆续续收集和写了两个月，主要想到兼容移动端，但发现一点都不好使。使用的better-scroll变的很卡并且在PC端效果不好，索性使用boostrap自带的处理移动端的功能。本项目主要使用Vue-cli3和bootstrap-vue搭建，其中还重点使用到的有vux、vue-awesome-swiper以及vue-router的路由按需加载。当然了，加上引入CDN、路由懒加载、使用本地文件等优化。后续也会持续更新新的内容以及优化，详情可看“更新说明”。',
                 staticUrl:'https://tilin.gitee.io/nav/'
             }

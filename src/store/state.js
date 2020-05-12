@@ -2,7 +2,7 @@ let searchVals = ''
 let searchWindow = 0
 let mainTitle = '业精于勤荒于嬉'
 let [showAboutDesc, showAboutEmail, showAboutUpdate] = [false, false, false]
-let theme = 'night'
+let theme = 1
 try {
     if (localStorage.getItem('mainTitle')) mainTitle = localStorage.getItem('mainTitle')
 } catch (error) {

@@ -19,7 +19,6 @@
         <li></li>
         <li class="back"></li>
       </ul>
-      <!-- <ul><span class="point">∶</span></ul> -->
       <!-- 分 -->
       <ul class="t_ul">
         <li class="front"></li>
@@ -37,7 +36,6 @@
         <li></li>
         <li class="back"></li>
       </ul>
-      <!-- <ul><span class="point">∶</span></ul> -->
       <!-- 秒 -->
       <ul class="t_ul">
         <li class="front"></li>
@@ -87,14 +85,7 @@
           arr[5] = new Date().getSeconds() % 10;
           return arr
         }
-        addStyle(oul)
-        function addStyle(el) { // 元素，分割样式
-          for (let j = 0; j < el.length; j++) {
-            j % 2 == 0 ? el[j].setAttribute('style', 'margin-right:5px') : el[j].setAttribute('style',
-              'margin-left:5px')
-          }
-        }
-
+        // time()
         function time() {
           var arr2 = timeArr();
 
@@ -112,15 +103,28 @@
                 3) % 10;
               bot[this.index].innerHTML = arr2[this.index] + 1 < 10 ? arr2[this.index] + 1 : (arr2[this.index] +
                 1) % 10;
-
               this.classList.remove("transition");
 
             })
 
           }
-
+          // window.requestAnimationFrame(time);
         }
-        setInterval(time, 350)
+        // setInterval(time, 1000)
+      /*
+       "在开发环境下，很少使用间歇调用（setInterval），原因是后一个间歇调用很可能在前一个间歇调用结束前启动",
+      （如，回调当中的代码执行for循环时间比，比设定时间长，在回调还没执行完的时候，第二次定时任务就已经放到事件队列中去了，
+      所以多用seTimeout代替setinterval）      
+      */
+        
+        timeOut()
+        function timeOut(){
+          clearTimeout(timer)
+          let t=1000
+          let timer=null
+          time()
+          timer=setTimeout(timeOut, t);
+        }
 
       }
     },
@@ -143,6 +147,10 @@
     position: relative;
     transform-style: preserve-3d;
     transform: rotateX(5deg) rotateY(-7deg);
+    &:nth-child(2n){ // 1开始 
+      margin-left: 5px;
+      margin-right: 10px;
+    }
     &:nth-child(2n-1){
       margin-right: 0!important;
     }
@@ -208,12 +216,6 @@
 
   .time li:nth-of-type(6) {
     transform: translateZ(-17px);
-  }
-
-  .point {
-    color: #fff;
-    font-size: 20px;
-    font-weight: bold;
   }
 
   /*@keyframes sk {

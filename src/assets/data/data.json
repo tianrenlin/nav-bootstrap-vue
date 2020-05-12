@@ -27,11 +27,7 @@
             "url": "https://mail.qq.com/",
             "logo": "img/web/qqyx.png",
             "des": "QQ邮箱，常用邮箱"
-        }]
-    }, {
-        "title": "常规浏览",
-        "icon": "list-task",
-        "web": [{
+        },{
             "name": "百度云盘",
             "url": "https://pan.baidu.com/",
             "logo": "img/web/baiduyun.png",
@@ -41,6 +37,20 @@
             "url": "https://www.lanzou.com/u",
             "logo": "img/web/lanzouyun.png",
             "des": "蓝奏云，快捷方便"
+        }]
+    }, {
+        "title": "综合资源",
+        "icon": "list-task",
+        "web": [{
+            "name": "大力盘",
+            "url": "https://www.dalipan.com/",
+            "logo": "img/web/dalip.png",
+            "des": "网盘搜索，就用大力盘"
+        }, {
+            "name": "百度网盘资源",
+            "url": "http://www.friok.com/",
+            "logo": "img/web/friok.png",
+            "des": "能够查找到各种度盘资源"
         }]
     }, {
         "title": "社区求索",
@@ -70,6 +80,11 @@
             "url": "https://stackoverflow.com/",
             "logo": "img/web/overflow.png",
             "des": "StackOverFlow，国际IT技术问答网站"
+        }, {
+            "name": "简书",
+            "url": "https://jianshu.com/",
+            "logo": "img/web/jianshu.png",
+            "des": "简书，创作社区，寻找有益的知识"
         }]
     }, {
         "title": "学习网站",
@@ -218,11 +233,6 @@
             "url": "http://www.addog.vip/",
             "logo": "img/web/addog.png",
             "des": "广告创意，各种案例尽有"
-        }, {
-            "name": "百度网盘资源",
-            "url": "http://www.friok.com/",
-            "logo": "img/web/friok.png",
-            "des": "能够查找到各种度盘资源"
         }]
     }, {
         "title": "图片搜寻",
@@ -322,8 +332,8 @@
         "icon": "grid",
         "web": [{
             "name": "音乐狂",
-            "url": "https://music.junyuewl.com/",
-            "logo": "img/web/mk.png",
+            "url": "http://music.junyuewl.com/",
+            "logo": "img/web/yyk.png",
             "des": "全网音乐一网打尽，可下载"
         }, {
             "name": "公众号编辑",
@@ -417,10 +427,10 @@
                     "logo": "img/web/tuchong.png",
                     "des": "图虫网搜图"
                 }, {
-                    "name": "热搜[今日热榜]",
-                    "url": "https://tophub.today/search?q=",
-                    "logo": "img/web/today.png",
-                    "des": "今日热榜搜索条目"
+                    "name": "大力盘",
+                    "url": "https://www.dalipan.com/search?keyword=",
+                    "logo": "img/web/dalip.png",
+                    "des": "大力盘"
                 }, {
                     "name": "五号站[电影]",
                     "url": "http://www.baike567.com/s/{keyword}/",

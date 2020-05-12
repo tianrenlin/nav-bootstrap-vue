@@ -18,8 +18,8 @@
             {{nav.title}}
           </b-nav-item>
           <b-nav-item-dropdown text="切换主题" right>
-            <b-dropdown-item href="#" @click="night">夜间模式</b-dropdown-item>
-            <b-dropdown-item href="#" @click="day">白天模式</b-dropdown-item>
+            <b-dropdown-item href="#" @click="dayOrNight(1)">夜间模式</b-dropdown-item>
+            <b-dropdown-item href="#" @click="dayOrNight(0)">白天模式</b-dropdown-item>
           </b-nav-item-dropdown>
          <b-nav-item-dropdown right>
             <!-- Using 'button-content' slot -->
@@ -310,12 +310,29 @@
         this.changeTheme('.side_list',nt.side)
         this.$store.commit('changeTheme','night')
       },
+      dayOrNight(flag){
+        switch(flag){
+          // 0 白天 1夜晚
+          case '0':{
+            let dt=theme.dayTheme
+            this.changeTheme({'.content-theme':dt.body,'.side_list':dt.side},flag)
+          };break;
+          case '1':{
+            let nt=theme.nightTheme
+            this.changeTheme({'.content-theme':nt.body,'.side_list':nt.side},flag)
+          };break;
+          default:throw('主题切换出错！')
+        }
+      },
       // 主题修改函数
-      changeTheme(node,style){
-        let getNode=document.querySelectorAll(node)
-        getNode.forEach((el,i) => {
-            el.setAttribute('style',style)
-        });
+      changeTheme(objNode,theme){
+        for (let key in objNode) {
+          let getNode=document.querySelectorAll(key)
+          getNode.forEach((el,i) => {
+              el.setAttribute('style',objNode[key])
+          });
+        }
+        this.$store.commit('changeTheme',theme)
       },
     },
     mounted() {
@@ -325,11 +342,7 @@
             this.toSrollElement(0)
           };
           // 读取主题
-      if(this.$store.state.theme=='day'){
-        this.day()
-      }else{
-        this.night()
-      }
+          this.dayOrNight(this.$store.state.theme)
     },
     watch: {
       searchInput() {
