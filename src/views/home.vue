@@ -211,6 +211,7 @@
         if (el.keyCode == "13") {
           if (iptVals) return window.open('https://www.baidu.com/s?ie=UTF-8&wd=' + iptVals)
         }
+        this.changeSomeStyle()
       },
       // 获取Seach的内容清除空格
       getSearchVals() {
@@ -266,6 +267,7 @@
         width < 992 ? this.showSmallNav = true : this.showSmallNav = false
         // 关闭首页显示
         // width < 635 ? this.showIndexPage = false : this.showIndexPage = true
+        this.$store.commit('setWindowWidth',width)
       },
       // 获得每一个列表的高度，作为左右联动
       _calculateHeight() {
@@ -309,7 +311,6 @@
             let nt=theme.nightTheme
             this.changeTheme({'.content-theme':nt.body,'.side_list':nt.side},flag)
           };break;
-          // default:throw('主题切换出错！')
         }
       },
       // 主题修改函数
@@ -322,8 +323,25 @@
         }
         this.$store.commit('changeTheme',theme)
       },
+      changeSomeStyle(){
+        let t=500
+        let page=document.getElementsByClassName('index_page')[0]
+        let box=document.getElementsByClassName('inde_warpper')[0]
+        let list=document.getElementsByClassName('list-hook')[1]
+        let height=Number(box.offsetHeight-page.offsetHeight)-110
+        if(this.$store.state.searchVals&&this.$store.state.windowWidth<501){
+          list.setAttribute('style',`margin-top:${height}px;`)
+        }
+        if(this.$store.state.searchWindow==0){
+          list.removeAttribute('style')
+          t=999999999
+        }
+        clearTimeout(timer)
+        let timer=setTimeout(this.changeSomeStyle,t)
+      },
     },
     mounted() {
+        // 计算list的高度
           this._calculateHeight()
         // 返回页面顶部
           window.onload = ()=>{
@@ -331,6 +349,7 @@
           };
           // 读取主题
           this.dayOrNight(this.$store.state.theme)
+
     },
     watch: {
       searchInput() {

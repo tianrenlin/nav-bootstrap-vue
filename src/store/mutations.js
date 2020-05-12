@@ -6,6 +6,10 @@ function changeVals(state, vals) {
 function searchWindow(state, vals) {
     state.searchWindow = vals
 }
+// 保存获取的窗口大小
+function setWindowWidth(state,val){
+    state.windowWidth=val
+}
 // 改变主标题
 function changeTitle(state, title) {
     state.mainTitle = title
@@ -39,6 +43,7 @@ function showAboutUpdate(state, judge) {
 export default {
     changeVals,
     searchWindow,
+    setWindowWidth,
     changeTitle,
     showAboutDesc,
     showAboutEmail,
