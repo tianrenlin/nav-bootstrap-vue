@@ -338,6 +338,7 @@
         }
         clearTimeout(timer)
         let timer=setTimeout(this.changeSomeStyle,t)
+        
       },
     },
     mounted() {
