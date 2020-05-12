@@ -298,30 +298,18 @@
         this.scrollY=i
       },
       // 切换主题
-      day(){
-        let dt=theme.dayTheme
-        this.changeTheme('.content-theme',dt.body)
-        this.changeTheme('.side_list',dt.side)
-        this.$store.commit('changeTheme','day')
-      },
-      night(){
-        let nt=theme.nightTheme
-        this.changeTheme('.content-theme',nt.body)
-        this.changeTheme('.side_list',nt.side)
-        this.$store.commit('changeTheme','night')
-      },
       dayOrNight(flag){
         switch(flag){
           // 0 白天 1夜晚
-          case '0':{
+          case 0:{
             let dt=theme.dayTheme
             this.changeTheme({'.content-theme':dt.body,'.side_list':dt.side},flag)
           };break;
-          case '1':{
+          case 1:{
             let nt=theme.nightTheme
             this.changeTheme({'.content-theme':nt.body,'.side_list':nt.side},flag)
           };break;
-          default:throw('主题切换出错！')
+          // default:throw('主题切换出错！')
         }
       },
       // 主题修改函数
