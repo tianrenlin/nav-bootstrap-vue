@@ -332,8 +332,7 @@
         let height=Number(box.offsetHeight-page.offsetHeight)-110
         // 输入内容时
         if(this.$store.state.searchVals&&this.$store.state.windowWidth<501){
-          // list.setAttribute('style',`margin-top:${height}px;`)
-          list.setAttribute('style',`margin-top:0px;`)
+          list.setAttribute('style',`margin-top:10%;`)
         }
         // 取消MORE模块时
         if(this.$store.state.searchWindow==0){
