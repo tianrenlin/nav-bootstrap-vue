@@ -8,12 +8,12 @@
       </b-navbar-brand>
       <!-- 小导航 -->
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
-      <b-collapse id="nav-collapse" is-nav ref="smallNav">
+      <b-collapse id="nav-collapse" is-nav ref="smallNav" @touchmove.prevent>
         <!-- Right aligned nav items -->
-        <b-navbar-nav class="ml-auto" small>
+        <b-navbar-nav class="ml-auto" small @touchmove.prevent>
           <!-- 小导航列表 -->
           <b-nav-item v-for="(nav,n) in menuData" :key="n" v-show="showSmallNav" class="small_nav"
-            :class="{'current':currentIndex==n}" @click="selectMenu(n,$event)">
+            :class="{'current':currentIndex==n}" @click.prevent="selectMenu(n,$event)">
             <b-icon :icon="nav.icon" font-scale="1.5"></b-icon>
             {{nav.title}}
           </b-nav-item>
