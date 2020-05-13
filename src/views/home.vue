@@ -323,15 +323,19 @@
         }
         this.$store.commit('changeTheme',theme)
       },
+      // 解决MORE模块更长遮盖问题
       changeSomeStyle(){
         let t=500
         let page=document.getElementsByClassName('index_page')[0]
         let box=document.getElementsByClassName('inde_warpper')[0]
         let list=document.getElementsByClassName('list-hook')[1]
         let height=Number(box.offsetHeight-page.offsetHeight)-110
+        // 输入内容时
         if(this.$store.state.searchVals&&this.$store.state.windowWidth<501){
-          list.setAttribute('style',`margin-top:${height}px;`)
+          // list.setAttribute('style',`margin-top:${height}px;`)
+          list.setAttribute('style',`margin-top:0px;`)
         }
+        // 取消MORE模块时
         if(this.$store.state.searchWindow==0){
           list.removeAttribute('style')
           t=999999999
