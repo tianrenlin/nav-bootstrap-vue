@@ -229,7 +229,7 @@
             "logo": "img/web/tool.png",
             "des": "各种在线工具，应有尽有"
         }, {
-            "name": "addog",
+            "name": "ADdog",
             "url": "http://www.addog.vip/",
             "logo": "img/web/addog.png",
             "des": "广告创意，各种案例尽有"
@@ -336,6 +336,11 @@
             "logo": "img/web/yyk.png",
             "des": "全网音乐一网打尽，可下载"
         }, {
+            "name": "bilibili",
+            "url": "https://www.bilibili.com/",
+            "logo": "img/web/bili.png",
+            "des": "b站，也有优秀的内容值得消遣~"
+        },{
             "name": "公众号编辑",
             "url": "http://www.zhubian.com/",
             "logo": "img/web/zhubian.png",
