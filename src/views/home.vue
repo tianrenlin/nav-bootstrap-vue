@@ -329,7 +329,7 @@
         let page=document.getElementsByClassName('index_page')[0]
         let box=document.getElementsByClassName('inde_warpper')[0]
         let list=document.getElementsByClassName('list-hook')[1]
-        let height=Number(box.offsetHeight-page.offsetHeight)-110
+        let height=Number(box.offsetHeight-page.offsetHeight)+80
         // 输入内容时
         if(this.$store.state.searchVals&&this.$store.state.windowWidth<501){
           list.setAttribute('style',`margin-top:${height}px;`)
