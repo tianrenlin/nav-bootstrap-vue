@@ -135,6 +135,7 @@
 <script>
   import _ from 'lodash'
   import theme from '@/assets/js/theme'
+  import Time from '@/components/time'
   export default {
     data() {
       return {
@@ -325,11 +326,11 @@
       },
       // 解决MORE模块更长遮盖问题
       changeSomeStyle(){
-        let t=500
+        let t=800
         let page=document.getElementsByClassName('index_page')[0]
         let box=document.getElementsByClassName('inde_warpper')[0]
         let list=document.getElementsByClassName('list-hook')[1]
-        let height=Number(box.offsetHeight-page.offsetHeight)+80
+        let height=Number(box.offsetHeight-page.offsetHeight)+50
         // 输入内容时
         if(this.$store.state.searchVals&&this.$store.state.windowWidth<501){
           list.setAttribute('style',`margin-top:${height}px;`)
@@ -341,9 +342,9 @@
           box.removeAttribute('style')
           t=999999999
         }
+        // 设置定时器反复执行，主要判断MORE是否关闭
         clearTimeout(timer)
         let timer=setTimeout(this.changeSomeStyle,t)
-        
       },
     },
     mounted() {
@@ -375,9 +376,10 @@
       currentIndex() {
         return this.scrollY
       },
+      
     },
     components: {
-      Time: () => import('@/components/time'),
+      Time,
       Animation: () => import('@/components/animation'),
       More: () => import('@/components/more'),
       About: () => import('@/components/about'),
