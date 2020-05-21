@@ -18,6 +18,7 @@ const routes = [{
 ]
 
 const router = new VueRouter({
+    mode:'history',
     routes,
     // 解决当页面滑动到下方时点击进入详情页不在顶部问题
     scrollBehavior: function(to, from, savedPosition) {
