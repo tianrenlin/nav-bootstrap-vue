@@ -8,12 +8,12 @@
       </b-navbar-brand>
       <!-- 小导航 -->
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
-      <b-collapse id="nav-collapse" is-nav ref="smallNav" @touchmove.prevent>
+      <b-collapse id="nav-collapse" is-nav ref="smallNav">
         <!-- Right aligned nav items -->
-        <b-navbar-nav class="ml-auto" small @touchmove.prevent>
+        <b-navbar-nav class="ml-auto" small @touchmove="stopEvent($event)">
           <!-- 小导航列表 -->
           <b-nav-item v-for="(nav,n) in menuData" :key="n" v-show="showSmallNav" class="small_nav"
-            :class="{'current':currentIndex==n}" @click.prevent="selectMenu(n,$event)">
+            :class="{'current':currentIndex==n}" @click="selectMenu(n,$event)">
             <b-icon :icon="nav.icon" font-scale="1.5"></b-icon>
             {{nav.title}}
           </b-nav-item>
@@ -345,6 +345,13 @@
         // 设置定时器反复执行，主要判断MORE是否关闭
         clearTimeout(timer)
         let timer=setTimeout(this.changeSomeStyle,t)
+      },
+      // 移动端导航滚动时阻止页面滚动
+      stopEvent(e){
+        console.log(e)
+        e.stopPropagation()
+        // e.preventDefault()
+        return false
       },
     },
     mounted() {
