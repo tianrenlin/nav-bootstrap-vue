@@ -122,7 +122,7 @@
     <!-- 编辑title的模态框 -->
     <!-- <b-modal v-model="modalTitle" title="编辑标题" :header-bg-variant="headerBgVariant"
       :header-text-variant="headerTextVariant" hide-footer> -->
-    <b-modal v-model="modalTitle" title="编辑标题" :header-class="'body-class'" dialog-class="dialog-class" :body-class="'body-class'" modal-class="modal-class" hide-footer>
+    <b-modal v-model="modalTitle" title="编辑标题" :header-class="[$store.state.theme=='day'?'body-class-day':'body-class-night']" dialog-class="dialog-class" :body-class="[$store.state.theme=='day'?'body-class-day':'body-class-night']" modal-class="modal-class" hide-footer>
       <form ref="form" @submit.stop.prevent="handleSubmit" class="dilog-input">
         <b-form-input v-model="title" trim></b-form-input>
         <b-button class="mt-3" variant="outline-primary" block @click="modalTitle=false">确 定</b-button>
@@ -302,18 +302,27 @@
       },
       // 切换主题
       dayOrNight(flag){
-        let node=document.getElementById('style')
         switch(Number(flag)){
-          // 0 白天 1夜晚（默认）
+          // 0 白天 1夜晚
           case 0:{
-            node.innerHTML=theme.day
-            this.$store.commit('changeTheme',flag)
+            let dt=theme.dayTheme
+            this.changeTheme({'.content-theme':dt.body,'.side_list':dt.side},flag)
           };break;
           case 1:{
-            node.innerHTML=null
-            this.$store.commit('changeTheme',flag)
+            let nt=theme.nightTheme
+            this.changeTheme({'.content-theme':nt.body,'.side_list':nt.side},flag)
           };break;
         }
+      },
+      // 主题修改函数
+      changeTheme(objNode,theme){
+        for (let key in objNode) {
+          let getNode=document.querySelectorAll(key)
+          getNode.forEach((el,i) => {
+              el.setAttribute('style',objNode[key])
+          });
+        }
+        this.$store.commit('changeTheme',theme)
       },
       // 解决MORE模块更长遮盖问题
       changeSomeStyle(){

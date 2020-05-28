@@ -1,14 +1,14 @@
 <template>
     <div id="about">
         <!-- header-class：自定义样式，根据主题判断样式 -->
-        <b-modal v-model="$store.state.showAboutDesc" :title="title.desc" :header-class="[$store.state.theme=='day'?'body-class-day':'body-class-night']" dialog-class="dialog-class" :body-class="[$store.state.theme=='day'?'body-class-day':'body-class-night']" modal-class="modal-class" hide-footer>
+        <b-modal v-model="$store.state.showAboutDesc" :title="title.desc" :header-class="'body-class'" dialog-class="dialog-class" :body-class="'body-class'" modal-class="modal-class" hide-footer>
             <p>{{description}}</p>
             <a :href="staticUrl" target="_blank" class="staticUrl">点击查看原始项目</a>
         </b-modal>
-        <b-modal v-model="$store.state.showAboutEmail" :title="title.email"  :header-class="[$store.state.theme=='day'?'body-class-day':'body-class-night']" dialog-class="dialog-class" :body-class="[$store.state.theme=='day'?'body-class-day':'body-class-night']" modal-class="modal-class" hide-footer>
+        <b-modal v-model="$store.state.showAboutEmail" :title="title.email"  :header-class="'body-class'" dialog-class="dialog-class" :body-class="'body-class'" modal-class="modal-class" hide-footer>
             <div title="默认使用QQ邮箱" class="h4 mb-2 email" @click="email" style="display:flex;align-items:center;justify-content:center;cursor: pointer;"><b-icon icon="envelope" :variant="variant[0]" font-scale="1.1"></b-icon> <span style="padding:0 0 6px 5px;">向我发邮件</span></div>
         </b-modal>
-        <b-modal v-model="$store.state.showAboutUpdate" scrollable :title="title.update"  :header-class="[$store.state.theme=='day'?'body-class-day':'body-class-night']" dialog-class="dialog-class" :body-class="[$store.state.theme=='day'?'body-class-day':'body-class-night']" modal-class="modal-class" hide-footer>
+        <b-modal v-model="$store.state.showAboutUpdate" scrollable :title="title.update"  :header-class="'body-class'" dialog-class="dialog-class" :body-class="'body-class'" modal-class="modal-class" hide-footer>
             <div>
                 <b-alert show :variant="variant[i%variant.length]" v-for="(item,i) in info" :key="i">
                     <b-icon icon="award" :variant="variant[i%variant.length]"></b-icon>
