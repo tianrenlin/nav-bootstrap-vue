@@ -3,6 +3,7 @@ let b_white = 'background:#fff' // 白
 let im='!important'
     // 控制主题样式(此处保留night样式)
 let day = `
+    body{${b_white}${im};}
     .content-theme{
         ${b_white}${im};
     }
@@ -11,6 +12,10 @@ let day = `
     }
     .header-class{color: #007ACC${im};background: #fff${im};}
     .body-class{background:#fff${im};color: #007ACC${im};}
+    .side_tip{
+        color: rgb(151, 193, 216)${im};
+        box-shadow: 0px 0px 8px rgb(145, 204, 236) inset${im};
+    }
 `
 let night = `
     .content-theme{

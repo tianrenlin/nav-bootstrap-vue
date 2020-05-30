@@ -17,6 +17,11 @@
                 </b-alert>
             </div>
         </b-modal>
+        <b-modal v-model="$store.state.showAboutKey" :title="title.key" :header-class="'body-class'" dialog-class="dialog-class" :body-class="'body-class'" modal-class="modal-class" hide-footer>
+            <p class="key_desc">使用前先切换“英文输入法”，快速按2次按键</p>
+            <b-table :items="keyInfo" :fields="fields" bordered striped>
+            </b-table>
+        </b-modal>
     </div>
 </template>
 
@@ -28,12 +33,30 @@ import update from '@/assets/data/updateInfo.json'
                 title:{
                     desc:'简介',
                     email:'Email',
-                    update:'更新说明'
+                    update:'更新说明',
+                    key:'按键大全'
                 },
                 info:[],
                 variant:['primary','secondary','success','danger','warning','info','dark'],
                 description:'这个项目很久之前都想做了，之前做了个很简单的，想纯用js不借助框架来写。该项目陆陆续续收集和写了两个月，主要想到兼容移动端，但发现一点都不好使。使用的better-scroll变的很卡并且在PC端效果不好，索性使用boostrap自带的处理移动端的功能。本项目主要使用Vue-cli3和bootstrap-vue搭建，其中还重点使用到的有vux、vue-awesome-swiper以及vue-router的路由按需加载。当然了，加上引入CDN、路由懒加载、使用本地文件等优化。后续也会持续更新新的内容以及优化，详情可看“更新说明”。',
-                staticUrl:'https://tilin.gitee.io/nav/'
+                staticUrl:'https://tilin.gitee.io/nav1/',
+                keyInfo:[
+                    {'key':'↑+↑','desc':'回到顶部'},
+                    {'key':'↓+↓','desc':'回到底部'},
+                    {'key':'←+←','desc':'关闭大导航'},
+                    {'key':'→+→','desc':'开启大导航'},
+                    {'key':'T+T','desc':'打开修改主标题窗口'},
+                    {'key':'F+F','desc':'自动聚焦搜索框'},
+                    {'key':'D+D','desc':'开启白天模式'},
+                    {'key':'N+N','desc':'开启夜间模式'},
+                    {'key':'双击退格键','desc':'清空搜索框'},
+                    {'key':'M+M','desc':'关闭更多搜索并清除搜索框'},
+                    {'key':'CTRL+M','desc':'关闭更多搜索'},
+                ],
+                fields:[
+                    {key:'key',label:'快捷键'},
+                    {key:'desc',label:'功 能'}
+                ]
             }
         },
         created(){
@@ -59,5 +82,6 @@ import update from '@/assets/data/updateInfo.json'
         text-align:center;
         padding-top: 5px;
     }
-
+    .b-table{color: #007acc;text-align: center;}
+    .key_desc{color: #888;}
 </style>

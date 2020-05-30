@@ -29,6 +29,7 @@
             <b-dropdown-item @click="$store.commit('showAboutDesc', true)">简介</b-dropdown-item>
             <b-dropdown-item @click="$store.commit('showAboutEmail', true)">Email</b-dropdown-item>
             <b-dropdown-item @click="$store.commit('showAboutUpdate', true)">更新说明</b-dropdown-item>
+            <b-dropdown-item @click="$store.commit('showAboutKey', true)">快捷按键</b-dropdown-item>
           </b-nav-item-dropdown>
         </b-navbar-nav>
       </b-collapse>
@@ -36,25 +37,26 @@
     <!-- 主体 -->
     <div id="main">
       <!-- 侧边栏 -->
-      <div id="side" v-show="showBigSide">
-        <!-- 大导航 -->
-        <div class="side_list" ref="menu">
-          <b-list-group>
-            <b-list-group-item :class="{'current':currentIndex==i}" @click="selectMenu(i,$event)"
-              v-for="(item,i) in menuData" :key="i">
-              <b-icon :icon="item.icon" font-scale="1.5"></b-icon>
-              <span>{{item.title}}</span>
-            </b-list-group-item>
-          </b-list-group>
+      <sideMove>
+        <div id="side" v-show="$store.state.side && showBigSide">
+          <!-- 大导航 -->
+          <div class="side_list" ref="menu">
+            <b-list-group>
+              <b-list-group-item :class="{'current':currentIndex==i}" @click="selectMenu(i,$event)"
+                v-for="(item,i) in menuData" :key="i">
+                <b-icon :icon="item.icon" font-scale="1.5"></b-icon>
+                <span>{{item.title}}</span>
+              </b-list-group-item>
+            </b-list-group>
+          </div>
         </div>
-      </div>
+      </sideMove>
       <!-- 内容区 -->
       <div id="content" class="row" ref="content" @click.stop="$refs.smallNav.show=false">
         <div class="content-theme"></div>
         <div class="col-md-12 col-sm-12">
           <!-- 网站列表区 -->
           <div ref="list" class="list">
-            <div>
               <!-- 默认展示的首页 -->
               <div v-if="showIndexPage" class="index_page row align-items-center justify-content-center list-hook">
                 <div class="inde_warpper">
@@ -69,7 +71,7 @@
                       <b-icon icon="search" font-scale="1"
                         style="width: 28px;height: 38px;margin: auto 10px;color:5693bd;">
                       </b-icon>
-                      <input placeholder="请输入内容" autofocus id="ipt_val" v-model="searchInput" @keyup="showClear" autocomplete='off'>
+                      <input placeholder="请输入内容" autofocus id="ipt_val" v-model="searchInput" @keyup="showClear" ref="iptSearch" autocomplete='off'>
                       <b-icon icon="x" font-scale="1.3" id="clear" v-show="clear" @click="showClear('clear')"></b-icon>
                       <span id="search" title="默认百度搜索" @click="search($event)">搜 索</span>
                      
@@ -79,7 +81,6 @@
                         <More ref="more"></More>
                       </div>
                     </Animation>
-
                   </div>
                 </div>
               </div>
@@ -114,7 +115,6 @@
                 </div>
               </div>
             </div>
-          </div>
         </div>
 
       </div>
@@ -124,11 +124,16 @@
       :header-text-variant="headerTextVariant" hide-footer> -->
     <b-modal v-model="modalTitle" title="编辑标题" :header-class="'body-class'" dialog-class="dialog-class" :body-class="'body-class'" modal-class="modal-class" hide-footer>
       <form ref="form" @submit.stop.prevent="handleSubmit" class="dilog-input">
-        <b-form-input v-model="title" trim></b-form-input>
+        <!-- <b-form-input v-model="title" trim ref="titleRef"></b-form-input> -->
+        <input v-model="title" ref="titleRef">
         <b-button class="mt-3" variant="outline-primary" block @click="modalTitle=false">确 定</b-button>
       </form>
     </b-modal>
-      <About></About>
+    <div class="side_tip" title="双击键盘左右键快速切换" @click="side" v-show="showBigSide">
+      <b-icon icon="arrow-bar-left" v-show="this.$store.state.side"></b-icon>
+      <b-icon icon="arrow-bar-right" v-show="this.$store.state.side==0"></b-icon>
+    </div>
+    <About></About>
   </div>
 </template>
 
@@ -136,6 +141,7 @@
   import _ from 'lodash'
   import theme from '@/assets/js/theme'
   import Time from '@/components/time'
+  import sideMove from '@/components/sideMove'
   export default {
     data() {
       return {
@@ -166,7 +172,7 @@
         scrollY: 0,
         // 存储列表高度
         listHeight: [],
-        // 是否显示大菜单栏 <1070px
+        // 显示大菜单栏 <1070px
         showBigSide: true,
         // 显示小菜单栏 <992px
         showSmallNav: false,
@@ -342,6 +348,114 @@
         e.stopPropagation()
         return false
       },
+      // 左右箭头快速显示/隐藏导航 1-显示 0-隐藏
+      side(){
+        let side=document.getElementById('side')
+        let theme=document.getElementsByClassName('content-theme')[0]
+        let tip=document.getElementsByClassName('side_tip')[0]
+        if(this.$store.state.side){ //隐藏
+          this.theStyle(1,theme,'width:100%;')
+          this.$store.commit('side',0)
+          tip.animate([
+            {transform:'translateX(0px)'},
+            {transform:'translateX(-177px)'},
+          ], { 
+              duration: 850,
+              fill:'both' // 保留最后一帧动画
+          });
+          
+        }else{  //显示
+          this.theStyle(0,theme)
+          this.$store.commit('side',1)
+          tip.animate([
+            {transform:'translateX(-177px)'},
+            {transform:'translateX(0px)'}
+          ],{
+            duration:850,
+            fill:'forwards'
+          })
+          
+        }
+      },
+      theStyle(flag,node,style){ // 添加或移动元素的style属性
+        if(flag){
+          node.setAttribute('style',style)
+        }else{
+          node.removeAttribute('style')
+        }
+      },
+      // 键盘组合事件-快捷键
+      doubleTouch(k){
+        let timer=null
+        k=Number(k)
+        /* 外层定时器解决回到顶部/底部不能触发bug
+        * 原因：点击上/下方向键时有浏览器自带事件
+        */
+        timer=setTimeout(() => { 
+          // 两次按键一致
+          if(this.$store.state.newKey==k){
+            switch(k){
+              case 8:{  // 退格键*2-清空搜索框
+                this.showClear('clear')
+              };break;
+              case 37:{ // ←←-关闭大导航
+                if(this.$store.state.side!=0){
+                  this.$store.commit('side',1)
+                  this.side()
+                }
+              };break;
+              case 38:{ // ↑↑-回到顶部 注意：根据左边大导航的模块高度来移动。1个模块=1个高度
+                this.toSrollElement(0)
+              };break;
+              case 39:{ // →→-开启大导航
+                if(this.$store.state.side!=1){
+                  this.$store.commit('side',0)
+                  this.side()
+                }
+              };break;
+              case 40:{ // ↓↓-回到底部
+                this.toSrollElement(11)
+              };break;
+              case 68:{ // DD-主题-白天
+                this.dayOrNight(0)
+              };break;
+              case 70:{ // FF-进入搜索框焦点
+                this.$refs.iptSearch.focus()
+              };break;
+              case 78:{ // NN-主题-夜晚
+                this.dayOrNight(1)
+              };break;
+              case 77:{ // MM-关闭更多搜索并清除搜索框
+                this.showClear('clear')
+                this.$store.commit('searchWindow', 0)
+              };break;
+              case 84:{ // TT-修改主标题
+                this.modalTitle=true
+                setTimeout(()=>{
+                  this.$refs.titleRef.focus()
+                })
+              };break;
+            }
+          }
+          // 两个不同组合键
+          else{
+            if(this.$store.state.newKey==17){ //点击CTRL键
+              switch(k){
+                case 77:{ // M-关闭更多搜索
+                  this.$store.commit('searchWindow', 0)
+                };break;
+              }
+            }
+          }
+          this.$store.commit('setKey',k)
+          clearTimeout(timer)
+          // 控制时长
+          timer=setTimeout(()=>{
+            this.$store.commit('setKey',null)
+            clearTimeout(timer)
+          },500)
+        });        
+      }
     },
     mounted() {
         // 计算list的高度
@@ -352,6 +466,15 @@
           };
           // 读取主题
           this.dayOrNight(this.$store.state.theme)
+          // 大导航状态
+          if(this.$store.state.side==0){// 0-隐藏
+            this.side()
+          }
+          document.onkeydown=(e)=>{
+            let k=e.keyCode
+            this.doubleTouch(k)
+          }
+          
 
     },
     watch: {
@@ -375,7 +498,7 @@
       
     },
     components: {
-      Time,
+      Time,sideMove,
       Animation: () => import('@/components/animation'),
       More: () => import('@/components/more'),
       About: () => import('@/components/about'),

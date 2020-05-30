@@ -114,12 +114,12 @@
                 "name": "张鑫旭",
                 "url": "https://www.zhangxinxu.com/",
                 "logo": "img/web/zxx.png",
-                "des": "前端大牛，主要在各种css选择器贡献"
+                "des": "前端大牛，主要在CSS以及CSS预处理器上的贡献"
             }, {
                 "name": "阮一峰",
                 "url": "http://www.ruanyifeng.com/",
                 "logo": "img/web/ryf.png",
-                "des": "翻译先进前端技术，经典的Flex布局"
+                "des": "翻译先进前端技术，经典的Flex布局、Grid布局"
             }, {
                 "name": "廖雪峰",
                 "url": "http://www.liaoxuefeng.com/",
@@ -150,6 +150,11 @@
             "url": "https://bootstrap-vue.js.org/docs/components",
             "logo": "img/web/bv.png",
             "des": "基于vue开发出的bootstrap，一如既往的布局"
+        }, {
+            "name": "MDN",
+            "url": "https://developer.mozilla.org/zh-CN/docs/Web/API",
+            "logo": "img/web/mdn.png",
+            "des": "专业的Web API网站"
         }, {
             "name": "菜鸟教程",
             "url": "https://www.runoob.com/",
@@ -212,7 +217,7 @@
             "name": "聚BT",
             "url": "https://jubt.gq/cn/index.html",
             "logo": "img/web/jubt.png",
-            "des": "没错，集乎所有资源任凭遨游"
+            "des": "没错，集乎所有资源任凭检索"
         }, {
             "name": "吾爱破解",
             "url": "https://www.52pojie.cn/",
@@ -246,7 +251,7 @@
             "name": "觅元素",
             "url": "http://www.51yuansu.com/",
             "logo": "img/web/miyuansu.png",
-            "des": "每天4张素材，可换账号，良心网站"
+            "des": "每天4张免扣素材，可换账号，良心网站"
         }, {
             "name": "花瓣网",
             "url": "https://huaban.com/",

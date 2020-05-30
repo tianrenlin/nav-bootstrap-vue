@@ -30,14 +30,12 @@
 
   #main {
     margin-right: 0;
-    margin-top: 56px;
     display: flex;
 
   }
-
   #side {
     flex: 0 0 200px;
-
+    width: 200px;
     .side_list {
       position: fixed;
       top: 0;
@@ -91,13 +89,14 @@
   #content {
     flex: 100%;
     height: 100vh;
+    margin-top: 60px;
     &>div{
       height: 100%;
     }
     .content-theme{
       position: fixed;
       top: 0;
-      width: 88%;
+      width: 90%;
       bottom: 0;
       z-index: -9;
       background: #0f3854;
@@ -162,6 +161,7 @@
         color: #056AB2;
         height: 100%;
         font-size: 20px;
+        padding: 0 22px 2px 0;
         border: none;
         outline: none;
         background: none;
@@ -262,19 +262,27 @@
     }
   }
   
-  // 动画
-  .more-enter,
-  .more-leave-to {
-    opacity: 0;
-    transform: translateY(100vh);
-  }
-
-  .more-enter-active,
-  .more-leave-active {
-    transition: all 0.6s ease;
-  }
   // 小导航
   .nav-item{
     font-size: 15px;
     a{color: #4689BF!important;font-weight: 700;}
+  }
+  // 控制大导航状态按钮
+  .side_tip{
+    position: fixed;
+    top: 34%;
+    left: 177px;
+    width: 25px;
+    height: 55px;
+    line-height: 52px;
+    text-align: center;
+    color: rgb(42, 114, 153);
+    font-size: 20px;
+    // background: linear-gradient(-45deg,rgba(160, 205, 230, 0.5),rgba(39, 136, 189,1),rgba(39, 136, 189,0.7));
+    border: 1px solid rgba(13, 124, 182, 0.1);
+    border-radius: 3px 0 0 3px;
+    box-sizing: border-box;
+    box-shadow: 0px 0px 8px rgb(41, 85, 109) inset;
+    cursor: pointer;
+    z-index: 9;
   }
