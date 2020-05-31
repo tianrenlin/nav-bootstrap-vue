@@ -197,7 +197,7 @@
 
 	  .box .front {
 	    font-size: 30px;
-	    text-shadow: 0 0 5px #fff, 0 0 20px #fefcc9;
+	    // text-shadow: 0 0 5px #fff, 0 0 20px #fefcc9;
 	    line-height: 35px;
 	    color: #007ACC;
 	    /* padding-left: 5px; */
