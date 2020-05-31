@@ -416,10 +416,10 @@
                     "logo": "img/web/youle.png",
                     "des": "优乐电影搜索"
                 }, {
-                    "name": "菜鸟教程",
-                    "url": "https://www.runoob.com/?s=",
-                    "logo": "img/web/runoob.png",
-                    "des": "基础前端知识搜索"
+                    "name": "MDN",
+                    "url": "https://developer.mozilla.org/en-US/search?q=",
+                    "logo": "img/web/mdn.png",
+                    "des": "专业Web API查询"
                 }, {
                     "name": "SegmentFault",
                     "url": "https://segmentfault.com/search?q=",
