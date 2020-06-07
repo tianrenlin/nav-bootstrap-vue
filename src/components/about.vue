@@ -49,8 +49,8 @@ import update from '@/assets/data/updateInfo.json'
                     {'key':'F+F','desc':'自动聚焦搜索框'},
                     {'key':'D+D','desc':'开启白天模式'},
                     {'key':'N+N','desc':'开启夜间模式'},
-                    {'key':'双击退格键','desc':'清空搜索框'},
                     {'key':'M+M','desc':'关闭更多搜索并清除搜索框'},
+                    {'key':'CTRL+退格键','desc':'清空搜索框'},
                     {'key':'CTRL+M','desc':'关闭更多搜索'},
                 ],
                 fields:[
