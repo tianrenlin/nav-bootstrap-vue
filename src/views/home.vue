@@ -321,7 +321,7 @@
           };break;
         }
       },
-      // 解决MORE模块更长遮盖问题
+      // 解决移动端MORE模块更长遮盖问题
       changeSomeStyle(){
         let t=800
         let page=document.getElementsByClassName('index_page')[0]
@@ -350,7 +350,6 @@
       },
       // 左右箭头快速显示/隐藏导航 1-显示 0-隐藏
       side(){
-        let side=document.getElementById('side')
         let theme=document.getElementsByClassName('content-theme')[0]
         let tip=document.getElementsByClassName('side_tip')[0]
         if(this.$store.state.side){ //隐藏
@@ -395,9 +394,6 @@
           // 两次按键一致
           if(this.$store.state.newKey==k){
             switch(k){
-              case 8:{  // 退格键*2-清空搜索框
-                this.showClear('clear')
-              };break;
               case 37:{ // ←←-关闭大导航
                 if(this.$store.state.side!=0){
                   this.$store.commit('side',1)
@@ -441,6 +437,9 @@
           else{
             if(this.$store.state.newKey==17){ //点击CTRL键
               switch(k){
+                case 8:{  // 退格键-清空搜索框
+                  this.showClear('clear')
+                };break;
                 case 77:{ // M-关闭更多搜索
                   this.$store.commit('searchWindow', 0)
                 };break;
