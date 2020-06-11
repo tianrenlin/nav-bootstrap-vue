@@ -1,5 +1,14 @@
 <template>
     <div id="about">
+        <b-nav-item-dropdown right>
+            <template v-slot:button-content>
+              <span>子夜雨</span>
+            </template>
+            <b-dropdown-item @click="$store.commit('showAboutDesc', true)">简介</b-dropdown-item>
+            <b-dropdown-item @click="$store.commit('showAboutEmail', true)">Email</b-dropdown-item>
+            <b-dropdown-item @click="$store.commit('showAboutUpdate', true)">更新说明</b-dropdown-item>
+            <b-dropdown-item @click="$store.commit('showAboutKey', true)">快捷按键</b-dropdown-item>
+          </b-nav-item-dropdown>
         <!-- header-class：自定义样式，根据主题判断样式 -->
         <b-modal v-model="$store.state.showAboutDesc" :title="title.desc" :header-class="'body-class'" dialog-class="dialog-class" :body-class="'body-class'" modal-class="modal-class" hide-footer>
             <p>{{description}}</p>
@@ -18,7 +27,7 @@
             </div>
         </b-modal>
         <b-modal v-model="$store.state.showAboutKey" :title="title.key" :header-class="'body-class'" dialog-class="dialog-class" :body-class="'body-class'" modal-class="modal-class" hide-footer>
-            <p class="key_desc">使用前先切换“英文输入法”，快速按2次按键</p>
+            <p class="key_desc">使用前最好先切换“英文输入法”</p>
             <b-table :items="keyInfo" :fields="fields" bordered striped>
             </b-table>
         </b-modal>
@@ -38,7 +47,7 @@ import update from '@/assets/data/updateInfo.json'
                 },
                 info:[],
                 variant:['primary','secondary','success','danger','warning','info','dark'],
-                description:'这个项目很久之前都想做了，之前做了个很简单的，想纯用js不借助框架来写。该项目陆陆续续收集和写了两个月，主要想到兼容移动端，但发现一点都不好使。使用的better-scroll变的很卡并且在PC端效果不好，索性使用boostrap自带的处理移动端的功能。本项目主要使用Vue-cli3和bootstrap-vue搭建，其中还重点使用到的有vux、vue-awesome-swiper以及vue-router的路由按需加载。当然了，加上引入CDN、路由懒加载、使用本地文件等优化。后续也会持续更新新的内容以及优化，详情可看“更新说明”。',
+                description:'这个项目很久之前都想做了，之前做了个很简单的，想纯用js不借助框架来写。该项目陆陆续续收集和写了两个月，主要想到兼容移动端，但发现一点都不好使。使用的better-scroll变的很卡并且在PC端效果不好，索性使用boostrap自带的处理移动端的功能。本项目主要使用Vue-cli3和bootstrap-vue搭建，其中还重点使用到的有vux、vue-awesome-swiper、vue-color以及vue-router的路由按需加载。当然了，加上引入CDN、路由懒加载、使用本地文件等优化。后续也会持续更新新的内容以及优化，详情可看“更新说明”。',
                 staticUrl:'https://tilin.gitee.io/nav1/',
                 keyInfo:[
                     {'key':'↑+↑','desc':'回到顶部'},

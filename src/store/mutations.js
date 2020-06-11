@@ -16,16 +16,32 @@ function changeTitle(state, title) {
     try {
         localStorage.mainTitle = title
     } catch (error) {
-        console.log('你的浏览器不支持该内容！')
+        alert('你的浏览器不支持本地存储！')
     }
 }
 // 改变主题
-function changeTheme(state, flag) {
+function changeTheme(state, flag) { // 黑-白
     state.theme = flag
     try {
         localStorage.theme = flag
     } catch (error) {
-        console.log('你的浏览器不支持该内容！')
+        alert('你的浏览器不支持本地存储！')
+    }
+}
+function diyColor(state,value){ // 自定义颜色
+    state.diyColor=value
+    try {
+        localStorage.diyColor = value
+    } catch (error) {
+        alert('你的浏览器不支持本地存储！')
+    }
+}
+function diyBg(state,value){ // 自定义背景
+    state.diyBg=value
+    try {
+        localStorage.diyBg = value
+    } catch (error) {
+        alert('你的浏览器不支持本地存储！')
     }
 }
 // 大导航是否打开 1-打开 0-关闭
@@ -34,7 +50,7 @@ function side(state, flag) {
     try {
         localStorage.side = flag
     } catch (error) {
-        console.log('你的浏览器不支持该内容！')
+        alert('你的浏览器不支持本地存储！')
     }
 }
 // 显示About相关内容
@@ -56,7 +72,10 @@ function showAboutKey(state, judge) {
 function setKey(state,value){
     state.newKey=value
 }
-
+// 警告框
+function alert(state,value){
+    state.alert=value+new Date().getTime() // 加上时间戳是与之前相同的数据作比较并显示alert框
+}
 export default {
     changeVals,
     searchWindow,
@@ -67,6 +86,9 @@ export default {
     showAboutUpdate,
     showAboutKey,
     changeTheme,
+    diyBg,
+    diyColor,
     side,
-    setKey
+    setKey,
+    alert
 }

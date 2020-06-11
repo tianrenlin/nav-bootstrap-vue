@@ -37,7 +37,7 @@ a:hover{text-decoration: none;}
 // 标题弹出框
 .header-class{color: @blue;background: #000;}
 .dialog-class{background: @blue;border-radius: 3px;}
-.body-class{background:#000;color: #007ACC;}
+.body-class{background:#000;color: @blue;}
 .dilog-input input{
     width: 100%;
     height: 38px;
@@ -55,7 +55,7 @@ a:hover{text-decoration: none;}
     }
     .dropdown-menu{border-color: @blue;background: none;}
 }
-.text-primary{color: #007acc!important;}
+.text-primary{color: @blue!important;}
 // 更多搜索卡片样式
 .card{background: none;}
 .border-info{border-color: @blue;}
@@ -63,6 +63,31 @@ a:hover{text-decoration: none;}
 .swiper .close svg{color: @blue;}
 // 弹出警告框
 .alert-danger{color: @red;border-color: @red;background: none!important;}
+// 选择背景图片文件框
+.custom-file.b-form-file .custom-file-label{
+    color: @blue;
+    background: none;
+    border: 1px solid @blue;
+    &::after{
+        color: @blue;
+        background: none;
+    }
+}
+// 颜色选择器
+.card{
+    .vc-sketch{
+        width: 100%;
+        padding: 0;
+        .vc-sketch-saturation-wrap{
+            padding-bottom: 55%;
+        }
+        .vc-sketch-presets{
+            margin: 0;
+            display: flex;
+            justify-content: space-around;
+        }
+    }
+}
 @media screen and (max-width: 576px){
     // 调整每一项的网页链接的高度
     .nav_list ul{

@@ -164,8 +164,8 @@
   .time {
       max-width: 345px;
       width: 100%;
-      height: 60px;
-      margin: 40px auto;
+      height: 45px;
+      margin: 40px auto 0 auto;
       display: flex;
       justify-content: center;
     }

@@ -77,6 +77,8 @@
                     let urls=url.replace(/{keyword}/,vals)
                     if(url==urls) urls=url+vals  //相等时说明没有被替换
                     window.open(urls)
+                }else{
+                    this.$store.commit('alert', '请输入内容进行搜索！')
                 }
             }
         },
