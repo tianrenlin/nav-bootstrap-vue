@@ -40,39 +40,33 @@ let mainArea=document.getElementsByClassName('content-theme')[0]
                 diyColor:false, //自定义颜色
                 diyBg:false,     //自定义背景
                 tip:'请选择图片',
-                color: '#ff0000',
+                color: '#0D96C3A8', //默认自定义背景颜色颜色
                 colorShow:true
             }
         },
         methods: {
-            updateValue (val) {
-                this.color = val.hex8
-                this.changeColor()
-                this.$store.commit('diyColor',this.color)
-            },
-            // 切换主题
+            // 切换主题 - 主题状态 主题判断（自行读取：false、人为设置：true）
             dayOrNight(flag,judeg) {
                 flag=Number(flag)
                 switch (flag) {
-                    // 0 白天 1夜晚（默认）
-                    case 0: {
+                    case 0: { // 白天
                         themeEle.innerHTML = theme.day
                     };
                     break;
-                    case 1: {
+                    case 1: { // 黑夜
                         themeEle.innerHTML = null
                     };
                     break;
-                    case 2:{
+                    case 2:{ // 自定义背景色
                         if(judeg && this.$store.state.diyColor && this.$store.state.theme==flag){
-                            this.changeColor()
+                            this.changeColor(this.$store.state.diyColor)
                         }else{
                             if(!this.$store.state.diyColor){}
                             this.diyColor=true
                             this.changeColor()
                         }
                     };break;
-                    case 3:{
+                    case 3:{ // 自定义背景图
                         if(judeg && this.$store.state.diyBg && this.$store.state.theme==flag){
                             this.choosePic()
                         }else{
@@ -86,13 +80,15 @@ let mainArea=document.getElementsByClassName('content-theme')[0]
                 }
                 this.$store.commit('changeTheme', flag)
             },
+            // 获取已选择图片名称
             formatNames(files) {
                 if (files.length === 1) {
                     return files[0].name
                 } else {
-                    return `${files.length} files selected`
+                    return `${files.length} 个图片已选择，但只会显示其中一个！`
                 }
             },
+            // 选择图片
             choosePic(files){
                 let url
                 let oldSty=themeEle.innerHTML.toString().split('.content-theme')[0] //截取，避免样式重复
@@ -118,10 +114,20 @@ let mainArea=document.getElementsByClassName('content-theme')[0]
                 }
                 return url ;
             },
-            changeColor(){
+            // 已选中的颜色
+            updateValue (val) {
+                this.color = val.hex8
+                
+                this.changeColor(this.color)
+            },
+            // 选择颜色
+            changeColor(color){
                 let oldSty=themeEle.innerHTML.toString().split('.content-theme')[0] //截取，避免样式重复
-                let sty=theme.diyColor(this.$store.state.diyColor)
+                if(color){}
+                else{color=this.color}
+                let sty=theme.diyColor(color)
                 themeEle.innerHTML=`${oldSty.trim()}${sty}`
+                this.$store.commit('diyColor',color)
             }
         },
         mounted() {
