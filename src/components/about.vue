@@ -58,6 +58,8 @@ import update from '@/assets/data/updateInfo.json'
                     {'key':'F+F','desc':'自动聚焦搜索框'},
                     {'key':'D+D','desc':'开启白天模式'},
                     {'key':'N+N','desc':'开启夜间模式'},
+                    {'key':'C+C','desc':'自定义背景渐变'},
+                    {'key':'B+B','desc':'自定义背景图片'},
                     {'key':'M+M','desc':'关闭更多搜索并清除搜索框'},
                     {'key':'CTRL+退格键','desc':'清空搜索框'},
                     {'key':'CTRL+M','desc':'关闭更多搜索'},
@@ -81,8 +83,8 @@ import update from '@/assets/data/updateInfo.json'
 
 <style lang="less" scoped>
     p{
-        text-indent: 2em;
         line-height: 27px;
+        text-align: center;
     }
     .staticUrl{
         display: block;
