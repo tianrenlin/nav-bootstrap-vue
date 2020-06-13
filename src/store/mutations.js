@@ -44,6 +44,15 @@ function diyBg(state,value){ // 自定义背景
         alert('你的浏览器不支持本地存储！')
     }
 }
+// 自定义背景色配置
+function gradOptions(state,options){
+    state.gradOptions=options
+    try {
+        localStorage.gradOptions = options
+    } catch (error) {
+        alert('你的浏览器不支持本地存储！')
+    }
+}
 // 大导航是否打开 1-打开 0-关闭
 function side(state, flag) {
     state.side=flag
@@ -90,5 +99,6 @@ export default {
     diyColor,
     side,
     setKey,
-    alert
+    alert,
+    gradOptions
 }

@@ -7,6 +7,7 @@ let [theme,diyColor,diyBg]=[1,'',''] //主题-1：夜晚（默认），0：白�
 let side = 0 //左侧大导航
 let newKey=null //保存上一次的按键-快捷键
 let alert=0 //警告框
+let gradOptions=null //自定义背景色渐变配置
 try {
     if (localStorage.getItem('mainTitle')) mainTitle = localStorage.getItem('mainTitle')
 } catch (error) {
@@ -32,6 +33,11 @@ try {
 } catch (error) {
     side
 }
+try {
+    if (localStorage.getItem('gradOptions')) gradOptions = localStorage.getItem('gradOptions')
+} catch (error) {
+    gradOptions
+}
 
 export default {
     searchVals,
@@ -47,5 +53,6 @@ export default {
     diyBg,
     side,
     newKey,
-    alert
+    alert,
+    gradOptions
 }

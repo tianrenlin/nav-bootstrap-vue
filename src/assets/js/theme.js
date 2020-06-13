@@ -33,11 +33,15 @@ function diyBg (url){
         }
     `
 }
-function diyColor (color){
+function diyColor (flag,direction,color1,color2){
+    let grad
+    if(flag){ //径向渐变
+        grad=`radial-gradient(${direction},${color1},${color2})${im};`
+    }else{ //线性渐变
+        grad=`linear-gradient(${direction},${color1},${color2})${im};`
+    }
     return `
-        .content-theme{
-            background:${color}${im};
-        }
+        .content-theme{background:${grad}}
     `
 }
 export default {
