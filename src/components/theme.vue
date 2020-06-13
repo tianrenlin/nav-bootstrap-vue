@@ -12,11 +12,11 @@
                     <div class="chooseColor" ref="colorCase">
                         <div class="color1">
                             <span>颜色1</span>
-                            <i @click="setGrad(0)"></i>
+                            <label @click="setGrad(0)"></label>
                         </div>
                         <div class="color1">
                             <span>颜色2</span>
-                            <i @click="setGrad(1)"></i>
+                            <label @click="setGrad(1)"></label>
                         </div>
                         <div class="gradient">
                             <span>线性渐变</span>
@@ -87,7 +87,13 @@ let mainArea=document.getElementsByClassName('content-theme')[0]
                             this.setGrad(3) //有配置
                         }else{ //无配置
                             this.diyColor=true
-                            this.setGrad(2)
+                            // 再次校验，去掉本地有值情况
+                            if(this.$store.state.gradOptions){
+                                this.setGrad(3)
+                            }else{
+                                this.setGrad(2)
+                            }
+                            
                         }
                     };break;
                     case 3:{ // 自定义背景图
@@ -152,8 +158,6 @@ let mainArea=document.getElementsByClassName('content-theme')[0]
                 let options=this.$store.state.gradOptions
                 if(options){ //有值
                     options=JSON.parse(options.toString())
-                }else{ //无值
-
                 }
                 switch(Number(judeg)){
                     case 0:{ //颜色1
@@ -161,7 +165,7 @@ let mainArea=document.getElementsByClassName('content-theme')[0]
                         this.color2Flag=false
                         options.color1=this.color
                     };break;
-                    case 1:{
+                    case 1:{ //颜色2
                         this.color1Flag=false
                         this.color2Flag=true
                         options.color2=this.color
@@ -198,22 +202,22 @@ let mainArea=document.getElementsByClassName('content-theme')[0]
                 // 小方块颜色
                 let colorCase=this.$refs.colorCase
                 if(colorCase) {
-                colorCase=Array.from(colorCase.childNodes) //转化为数组
-                colorCase.some((item,i)=>{
-                    if(i<2){
-                        item=item.children[1]
-                        if(i==0){ //设置color1背景色
-                            item.style= `background:${options.color1}`
-                            this.color1=options.color1
-                            return
-                        } 
-                        if(i==1){ // 设置color2背景色
-                            item.style= `background:${options.color2}`
-                            this.color2=options.color2
-                            return
+                    colorCase=Array.from(colorCase.childNodes) //转化为数组
+                    colorCase.some((item,i)=>{
+                        if(i<2){
+                            item=item.children[1]
+                            if(i==0){ //设置color1背景色
+                                item.style= `background:${options.color1}`
+                                this.color1=options.color1
+                                return
+                            } 
+                            if(i==1){ //设置color2背景色
+                                item.style= `background:${options.color2}`
+                                this.color2=options.color2
+                                return
+                            }
                         }
-                    }
-                })
+                    })
                 }
                 let sty=theme.diyColor(options.type,options.select,options.color1,options.color2)
                 this.setBgStyle(sty)
@@ -291,8 +295,7 @@ let mainArea=document.getElementsByClassName('content-theme')[0]
         display: flex;
         justify-content: space-around;
         align-items: center;
-        span{}
-        i{
+        label{
             display: block;
             width: 20px;
             height: 20px;
@@ -303,14 +306,13 @@ let mainArea=document.getElementsByClassName('content-theme')[0]
     .gradient{
         display: flex;
         justify-content: space-around;
+        align-items: center;
         max-width: 200px;
         width: 100%;
-    }
-    .b-form-select{
-
     }
 }
 .card{
     border: 1px solid #007ACC;
 }
+
 </style>
