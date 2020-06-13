@@ -299,8 +299,9 @@ let mainArea=document.getElementsByClassName('content-theme')[0]
             display: block;
             width: 20px;
             height: 20px;
-            margin-left: 5px;
+            margin: 0 0 0 5px;
             background: chocolate;
+            border: 1px solid chocolate;
         }
     }
     .gradient{
