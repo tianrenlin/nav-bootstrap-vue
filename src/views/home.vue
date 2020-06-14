@@ -74,7 +74,6 @@
                     </div>
                   </Animation>
                 </div>
-                <!-- <Alert /> -->
               </div>
             </div>
             <!-- overflow:auto 解决BFC问题：子元素超出父元素 -->
@@ -120,9 +119,9 @@
         <b-button class="mt-3" variant="outline-primary" block @click="modalTitle=false">确 定</b-button>
       </form>
     </b-modal>
-    <div class="side_tip" title="双击键盘左右键快速切换" @click="side" v-show="showBigSide">
-      <b-icon icon="arrow-bar-left" v-show="this.$store.state.side"></b-icon>
-      <b-icon icon="arrow-bar-right" v-show="this.$store.state.side==0"></b-icon>
+    <div class="side_tip" title="双击键盘左右键快速切换" @click="side($store.state.side?0:1)" v-show="showBigSide">
+      <b-icon icon="arrow-bar-left" v-show="$store.state.side"></b-icon>
+      <b-icon icon="arrow-bar-right" v-show="!$store.state.side"></b-icon>
     </div>
   </div>
 </template>
@@ -320,46 +319,36 @@
         return false
       },
       // 左右箭头快速显示/隐藏导航 1-显示 0-隐藏
-      side() {
+      side(flag) {
+        flag=Number(flag)
         let theme = document.getElementsByClassName('content-theme')[0]
+        let side = document.getElementById('side')
         let tip = document.getElementsByClassName('side_tip')[0]
-        if (this.$store.state.side) { //隐藏
-          this.theStyle(1, theme, 'width:100%;')
-          this.$store.commit('side', 0)
-          tip.animate([{
-              transform: 'translateX(0px)'
-            },
-            {
-              transform: 'translateX(-177px)'
-            },
-          ], {
-            duration: 850,
-            fill: 'both' // 保留最后一帧动画
-          });
-
-        } else { //显示
-          this.theStyle(0, theme)
-          this.$store.commit('side', 1)
-          tip.animate([{
-              transform: 'translateX(-177px)'
-            },
-            {
-              transform: 'translateX(0px)'
-            }
-          ], {
-            duration: 850,
-            fill: 'forwards'
-          })
-
+        let duration=850
+        if (flag) { //显示
+          this.animation(tip,'-177px','0px',duration)
+          theme.style.width='90%'
+          this.$store.commit('side', flag)
+        } else { //隐藏
+          this.animation(tip,'0px','-177px',duration)
+          theme.style.width='100%'
+          this.$store.commit('side', flag)
         }
       },
-      theStyle(flag, node, style) { // 添加或移动元素的style属性
-        if (flag) {
-          node.setAttribute('style', style)
-        } else {
-          node.removeAttribute('style')
-        }
+      // 动画
+      animation(node,arg1,arg2,time){
+        node.animate([{
+            transform: `translateX(${arg1})`
+          },
+          {
+            transform: `translateX(${arg2})`
+          },
+        ], {
+          duration: time,
+          fill: 'forwards' // 保留最后一帧动画
+        });
       },
+      // 快捷键设置
       doubleTouch(k) {
         let timer = null
         k = Number(k)
@@ -371,9 +360,8 @@
           if (this.$store.state.newKey == k) {
             switch (k) {
               case 37: { // ←←-关闭大导航
-                if (this.$store.state.side != 0) {
-                  this.$store.commit('side', 1)
-                  this.side()
+                if(this.$store.state.side){
+                  this.side(0)
                 }
               };
               break;
@@ -382,9 +370,8 @@
             };
             break;
             case 39: { // →→-开启大导航
-              if (this.$store.state.side != 1) {
-                this.$store.commit('side', 0)
-                this.side()
+              if(!this.$store.state.side){
+                  this.side(1)
               }
             };
             break;
@@ -463,10 +450,8 @@
         this.toSrollElement(0)
       };
       // 大导航状态
-      if (this.$store.state.side == 0) { // 0-隐藏
-        this.side()
-      }
-
+      this.side(this.$store.state.side)
+      // 键盘按下-设置快捷键
       document.onkeydown = (e) => {
         let k = e.keyCode
         this.doubleTouch(k)
