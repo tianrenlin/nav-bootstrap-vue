@@ -37,10 +37,8 @@
 </template>
 
 <script>
-    import {
-        swiper,
-        swiperSlide
-    } from 'vue-awesome-swiper'
+    import {swiper,swiperSlide} from 'vue-awesome-swiper'
+    import {mapState,mapMutations} from 'vuex' //引入vuex辅助函数
     export default {
         data() {
             return {
@@ -68,19 +66,23 @@
             },
             closeMoreSearch() {
                 // 改变vuex中searchWindow的值
-                this.$store.commit('searchWindow', 0)
+                this.changeSearchWindow(0)
             },
             handleMoreItem(url) {
-                let vals = this.$store.state.searchVals
+                let vals = this.searchVals
                 if (vals) {
                     // 处理关键字后加搜索类型的
                     let urls=url.replace(/{keyword}/,vals)
                     if(url==urls) urls=url+vals  //相等时说明没有被替换
                     window.open(urls)
                 }else{
-                    this.$store.commit('alert', '请输入内容进行搜索！')
+                    this.alert('请输入内容进行搜索！')
                 }
-            }
+            },
+            ...mapMutations(['changeSearchWindow','alert'])
+        },
+        computed:{
+            ...mapState(['searchVals'])
         },
         components: {
             swiper,

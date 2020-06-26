@@ -97,7 +97,12 @@
             }
           }
           // 执行动画，并请求浏览器在下一次重绘之前调用指定的函数来更新动画。根据屏幕刷新率(60Hz)来执行，放到后台后不执行。
-          window.requestAnimationFrame(time);
+          // 解决长时间使用定时器造成卡顿、假死问题
+          let requestAnimationFrame=window.requestAnimationFrame ||
+              window.mozRequestAnimationFrame ||
+              window.webkitRequestAnimationFrame ||
+              window.msRequestAnimationFrame
+          requestAnimationFrame(time)
         }
         // 设置动画
         function animation(node){
@@ -109,6 +114,10 @@
               fill:'forwards',
               endDelay:500
             })
+        }
+        // 
+        function requestAnimationFrame(draw){
+          
         }
         // 处理旋转时上一个数字，同时处理因旋转产生视觉多出一秒问题
         function prevTime(){
@@ -143,11 +152,11 @@
       */
       // 3、===================进行动画-使用setTimeout===================
         // timeOut()
-        function timeOut(){
-          let t=1000
-          time()
-          setTimeout(timeOut, t);
-        }
+        // function timeOut(){
+        //   let t=1000
+        //   time()
+        //   setTimeout(timeOut, t);
+        // }
 
   }
     },

@@ -28,7 +28,7 @@
     <div id="main">
       <!-- 侧边栏 -->
       <sideMove>
-        <div id="side" v-show="$store.state.side && showBigSide">
+        <div id="side" v-show="side && showBigSide">
           <!-- 大导航 -->
           <div class="side_list" ref="menu">
             <b-list-group>
@@ -69,7 +69,7 @@
 
                   </div>
                   <Animation>
-                    <div id="more" ref="more" v-show="$store.state.searchWindow">
+                    <div id="more" ref="more" v-show="searchWindow">
                       <More ref="more"></More>
                     </div>
                   </Animation>
@@ -115,13 +115,14 @@
     <b-modal v-model="modalTitle" title="编辑标题" :header-class="'body-class'" dialog-class="dialog-class"
       :body-class="'body-class'" modal-class="modal-class" hide-footer>
       <form ref="form" @submit.stop.prevent="handleSubmit" class="dilog-input">
-        <input v-model="title" ref="titleRef">
+        <input v-model="$store.state.mainTitle" ref="titleRef">
         <b-button class="mt-3" variant="outline-primary" block @click="modalTitle=false">确 定</b-button>
       </form>
     </b-modal>
-    <div class="side_tip" title="双击键盘左右键快速切换" @click="side($store.state.side?0:1)" v-show="showBigSide">
-      <b-icon icon="arrow-bar-left" v-show="$store.state.side"></b-icon>
-      <b-icon icon="arrow-bar-right" v-show="!$store.state.side"></b-icon>
+    <!-- 开关左侧导航的小边块 -->
+    <div class="side_tip" title="双击键盘左右键快速切换" @click="leftSide(side?0:1)" v-show="showBigSide">
+      <b-icon icon="arrow-bar-left" v-show="side"></b-icon>
+      <b-icon icon="arrow-bar-right" v-show="!side"></b-icon>
     </div>
   </div>
 </template>
@@ -130,7 +131,8 @@
   import _ from 'lodash'
   import Time from '@/components/time' //时间组件
   import sideMove from '@/components/sideMove' //侧边栏-导航动画
-  import Theme from '@/components/theme'
+  import Theme from '@/components/theme' //主题组件
+  import {mapState,mapMutations} from 'vuex' //引入vuex辅助函数
   export default {
     data() {
       return {
@@ -146,10 +148,8 @@
         searchInput: '',
         // 清空搜索框
         clear: false,
-        // 标题以及模态框的样式
-        title: this.$store.state.mainTitle,
+        // 标题模态框的显示
         modalTitle: false,
-
         // 移动端点击状态
         touchStatus: false,
         timer: null,
@@ -176,7 +176,7 @@
         this.data = this.$mydata.data
         this.otherNav = this.$mydata.otherNav
         this.data = this.data.concat(this.otherNav)
-        // 使用工具集lodash的深拷贝cloneDeep避免数据污染 添加首页
+        // 使用工具集lodash的深拷贝cloneDeep避免数据污染-添加首页
         this.menuData = _.cloneDeep(this.data)
         let indexPage = {
           "title": "主页搜索",
@@ -190,7 +190,7 @@
         if (iptVals) {
           window.open('https://www.baidu.com/s?ie=UTF-8&wd=' + iptVals)
         }else{
-          this.$store.commit('alert', '请输入内容进行搜索！')
+          this.alert('请输入内容进行搜索！')
         }
       },
       // 监听keyup，清除搜索框数据，有数据时显示
@@ -258,8 +258,7 @@
         //小导航菜单992px时隐藏菜单栏
         width < 992 ? this.showSmallNav = true : this.showSmallNav = false
         // 关闭首页显示
-        // width < 635 ? this.showIndexPage = false : this.showIndexPage = true
-        this.$store.commit('setWindowWidth', width)
+        this.setWindowWidth(width)
       },
       // 获得每一个列表的高度，作为左右联动
       _calculateHeight() {
@@ -299,12 +298,12 @@
         let list = document.getElementsByClassName('list-hook')[1]
         let height = Number(box.offsetHeight - page.offsetHeight) + 50
         // 输入内容时
-        if (this.$store.state.searchVals && this.$store.state.windowWidth < 501) {
+        if (this.searchVals && this.windowWidth < 501) {
           list.setAttribute('style', `margin-top:${height}px;`)
           box.setAttribute('style', `margin-top:10%;`)
         }
         // 取消MORE模块时
-        if (this.$store.state.searchWindow == 0) {
+        if (this.searchWindow == 0) {
           list.removeAttribute('style')
           box.removeAttribute('style')
           t = 999999999
@@ -319,7 +318,7 @@
         return false
       },
       // 左右箭头快速显示/隐藏导航 1-显示 0-隐藏
-      side(flag) {
+      leftSide(flag) {
         flag=Number(flag)
         let theme = document.getElementsByClassName('content-theme')[0]
         let side = document.getElementById('side')
@@ -328,11 +327,11 @@
         if (flag) { //显示
           this.animation(tip,'-177px','0px',duration)
           theme.style.width='90%'
-          this.$store.commit('side', flag)
+          this.changeSide(flag)
         } else { //隐藏
           this.animation(tip,'0px','-177px',duration)
           theme.style.width='100%'
-          this.$store.commit('side', flag)
+          this.changeSide(flag)
         }
       },
       // 动画
@@ -357,11 +356,11 @@
          */
         timer = setTimeout(() => {
           // 两次按键一致
-          if (this.$store.state.newKey == k) {
+          if (this.newKey == k) {
             switch (k) {
               case 37: { // ←←-关闭大导航
-                if(this.$store.state.side){
-                  this.side(0)
+                if(this.side){
+                  this.leftSide(0)
                 }
               };
               break;
@@ -370,8 +369,8 @@
             };
             break;
             case 39: { // →→-开启大导航
-              if(!this.$store.state.side){
-                  this.side(1)
+              if(!this.side){
+                  this.leftSide(1)
               }
             };
             break;
@@ -380,19 +379,19 @@
             };
             break;
             case 65: { // AA-弹出警告框
-              this.$store.commit('alert', '我一直在背后默默支持~~~')
+              this.alert('我一直在背后默默支持~~~')
             };
             break;
             case 66: { // BB-自定义图片背景
-              this.$store.commit('changeTheme', 3)
+              this.changeTheme(3)
             };
             break;
             case 67: { // CC-自定义背景色
-              this.$store.commit('changeTheme', 2)
+              this.changeTheme(2)
             };
             break;
             case 68: { // DD-主题-白天
-              this.$store.commit('changeTheme', 0)
+              this.changeTheme(0)
             };
             break;
             case 70: { // FF-进入搜索框焦点
@@ -400,12 +399,12 @@
             };
             break;
             case 78: { // NN-主题-夜晚
-              this.$store.commit('changeTheme', 1)
+              this.changeTheme(1)
             };
             break;
             case 77: { // MM-关闭更多搜索并清除搜索框
               this.showClear('clear')
-              this.$store.commit('searchWindow', 0)
+              this.changeSearchWindow(0)
             };
             break;
             case 84: { // TT-修改主标题
@@ -419,28 +418,29 @@
           }
           // 两个不同组合键
           else {
-            if (this.$store.state.newKey == 17) { //点击CTRL键
+            if (this.newKey == 17) { //点击CTRL键
               switch (k) {
                 case 8: { // 退格键-清空搜索框
                   this.showClear('clear')
                 };
                 break;
               case 77: { // M-关闭更多搜索
-                this.$store.commit('searchWindow', 0)
+                this.changeSearchWindow(0)
               };
               break;
               }
             }
           }
-          this.$store.commit('setKey', k)
+          this.changeKey(k)
           clearTimeout(timer)
           // 控制时长
           timer = setTimeout(() => {
-            this.$store.commit('setKey', null)
+            this.changeKey(null)
             clearTimeout(timer)
           }, 500)
         });
-      }
+      },
+      ...mapMutations(['alert','setWindowWidth','changeSide','changeTheme','changeSearchWindow','changeKey','changeVals','changeTitle'])
     },
     mounted() {
       // 计算list的高度
@@ -450,7 +450,7 @@
         this.toSrollElement(0)
       };
       // 大导航状态
-      this.side(this.$store.state.side)
+      this.leftSide(this.side)
       // 键盘按下-设置快捷键
       document.onkeydown = (e) => {
         let k = e.keyCode
@@ -460,14 +460,16 @@
     watch: {
       searchInput() {
         if (this.searchInput) {
-          this.$store.commit('searchWindow', 1)
+          this.changeSearchWindow(1)
         }
         let vals = this.getSearchVals()
         // 改变vuex中searchVals的值
-        this.$store.commit('changeVals', vals)
+        this.changeVals(vals)
       },
-      title() {
-        this.$store.commit('changeTitle', this.title)
+      '$store.state.mainTitle': {
+        handler(){
+          this.changeTitle(this.mainTitle)
+        }
       }
     },
     computed: {
@@ -475,7 +477,8 @@
       currentIndex() {
         return this.scrollY
       },
-
+      // 主标题
+      ...mapState(['mainTitle','searchVals','windowWidth','searchWindow','side','newKey']),
     },
     components: {
       Time,

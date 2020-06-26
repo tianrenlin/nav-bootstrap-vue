@@ -3,7 +3,7 @@ function changeVals(state, vals) {
     state.searchVals = vals
 }
 // 显示更多搜索窗口
-function searchWindow(state, vals) {
+function changeSearchWindow(state, vals) {
     state.searchWindow = vals
 }
 // 保存获取的窗口大小
@@ -28,14 +28,6 @@ function changeTheme(state, flag) { // 黑-白
         alert('你的浏览器不支持本地存储！')
     }
 }
-function diyColor(state,value){ // 自定义颜色
-    state.diyColor=value
-    try {
-        localStorage.diyColor = value
-    } catch (error) {
-        alert('你的浏览器不支持本地存储！')
-    }
-}
 function diyBg(state,value){ // 自定义背景
     state.diyBg=value
     try {
@@ -54,7 +46,7 @@ function gradOptions(state,options){
     }
 }
 // 大导航是否打开 1-打开 0-关闭
-function side(state, flag) {
+function changeSide(state, flag) {
     state.side=flag
     try {
         localStorage.side = flag
@@ -78,7 +70,7 @@ function showAboutKey(state, judge) {
     state.showAboutKey = judge
 }
 // 快捷键：2次按键值对比
-function setKey(state,value){
+function changeKey(state,value){
     state.newKey=value
 }
 // 警告框
@@ -87,7 +79,7 @@ function alert(state,value){
 }
 export default {
     changeVals,
-    searchWindow,
+    changeSearchWindow,
     setWindowWidth,
     changeTitle,
     showAboutDesc,
@@ -96,9 +88,8 @@ export default {
     showAboutKey,
     changeTheme,
     diyBg,
-    diyColor,
-    side,
-    setKey,
+    changeSide,
+    changeKey,
     alert,
     gradOptions
 }
