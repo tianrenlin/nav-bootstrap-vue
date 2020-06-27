@@ -24,11 +24,6 @@ try {
     diyBg
 }
 try {
-    if (localStorage.getItem('diyColor')) diyColor = localStorage.getItem('diyColor')
-} catch (error) {
-    diyColor
-}
-try {
     if (localStorage.getItem('side')) side = localStorage.getItem('side')
 } catch (error) {
     side
