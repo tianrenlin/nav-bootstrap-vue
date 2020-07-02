@@ -67,6 +67,17 @@ let mainArea=document.getElementsByClassName('content-theme')[0]
                 color1Flag:true,color2Flag:false, //保存颜色1、颜色2的状态
                 color1:'rgba(11,62,81,0.66)',color2:'rgba(11,62,81,0.66)',
                 gradOptions:{}, //保存整体配置信息
+                // indexedDB配置参数-保存背景图片(base64)
+                myDB:{
+                    name: 'myDB',
+                    version: 1.0,
+                    db: null
+                },
+                bgImg:{
+                    name:'bgImg',
+                    id:1,
+                    value:''
+                }
             }
         },
         methods: {
@@ -97,10 +108,10 @@ let mainArea=document.getElementsByClassName('content-theme')[0]
                         }
                     };break;
                     case 3:{ // 自定义背景图
-                        if(judeg && this.$store.state.diyBg && this.$store.state.theme==flag){
+                        if(judeg &&  this.$store.state.theme==flag){
                             this.choosePic()
                         }else{
-                            if(!this.$store.state.diyBg) this.tip='图片已失效，请重新选择图片！'
+                            // if(!this.$store.state.diyBg) this.tip='图片已失效，请重新选择图片！'
                             this.diyBg=true
                             this.choosePic()
                             this.$store.commit('alert','注意：刷新或图片不显示时重新上传！')
@@ -120,29 +131,27 @@ let mainArea=document.getElementsByClassName('content-theme')[0]
             },
             // 选择图片
             choosePic(files){
-                let url
                 let oldSty=themeEle.innerHTML.toString().split('.content-theme')[0] //截取，避免样式重复
                 if(files){
-                    url=this.getImgUrl(files.target.files[0])
+                    this.setBase64(files.target.files[0])
                 }else{
-                    url=this.$store.state.diyBg
+                    this.getData(1)
                 }
-                let sty=theme.diyBg(url)
-                this.setBgStyle(sty)
-                this.$store.commit('diyBg',url)
+                this.$store.commit('diyBg',1)
             },
-            // 获取上传的图片的地址
-            getImgUrl(file) {
-                var url = null ;
-                // 下面函数执行的结果是一样的，针对不同的浏览器执行不同的 js 函数
-                if (window.createObjectURL!=undefined) { // basic
-                    url = window.createObjectURL(file) ;
-                } else if (window.URL!=undefined) { // firefox
-                    url = window.URL.createObjectURL(file) ;
-                } else if (window.webkitURL!=undefined) { // webkit、chrome
-                    url = window.webkitURL.createObjectURL(file) ;
+            // 使用indexedDB保存图片的base64数据，刷新后能够再次使用
+            setBase64(file) {
+                var reader = new FileReader();
+                reader.readAsDataURL(file);
+                reader.onload = ()=>{
+                    //获取到base64格式图片，不能return否则为undefined
+                    let base64=reader.result
+                    let obj={
+                        id:1,
+                        value:reader.result
+                    }
+                    this.putData(obj)
                 }
-                return url ;
             },
             // 已选中的颜色
             updateValue (val) {
@@ -231,8 +240,68 @@ let mainArea=document.getElementsByClassName('content-theme')[0]
                 let oldSty=themeEle.innerHTML.toString().split('.content-theme')[0] //截取，避免样式重复
                 themeEle.innerHTML=`${oldSty.trim()}${style}`
             },
+            // 加载indexedDB
+            indexedDB(){
+                let indexedDB = window.indexedDB || window.webkitIndexedDB || window.mozIndexedDB || window.msIndexedDB
+                if(!indexedDB){
+                    this.$store.commit('alert',"你的浏览器不支持IndexedDB")
+                    return false
+                }
+                let _this=this
+                // 打开数据库
+                var request = indexedDB.open(_this.myDB.name, _this.myDB.version)
+                request.onerror = function (e) { //错误
+                    _this.$store.commit('alert','打开本地数据库失败')
+                }
+                request.onsuccess = function (e) { //成功
+                    _this.myDB.db = e.target.result
+                    if(_this.$store.state.theme==3) _this.getData(1) //判断主题并读取indexedDB中的数据
+                }
+                request.onupgradeneeded = function (e) { //进行操作
+                    var db = e.target.result;
+                    if (!db.objectStoreNames.contains(_this.bgImg.name)) { //创建索引
+                        var store = db.createObjectStore(_this.bgImg.name, { keyPath: 'id',autoIncrement: true});
+                        store.createIndex('value', 'value', { unique: true })
+                        store.transaction.oncomplete=()=>{ //添加
+                            var transaction = db.transaction(_this.bgImg.name, 'readwrite').objectStore(_this.bgImg.name)
+                            transaction.add(_this.bgImg)
+                        }
+                    }
+                }
+            },
+            // 读取indexedDB中的数据
+            getData(id){
+                let transaction=this.myDB.db.transaction(this.bgImg.name,'readwrite').objectStore(this.bgImg.name)
+                let request=transaction.get(id) //注意数据类型
+                request.onsuccess=(e)=>{
+                    let data=e.target.result
+                    this.setBgStyle(theme.diyBg(data.value)) //进行背景设置
+                }
+                request.onerror=(err)=>{
+                    this.$store.commit('alert','获取本地数据失败！')
+                }
+            },
+            // 设置indexedDB中的数据
+            putData(obj){
+                if(JSON.stringify(obj)===undefined) obj=this.bgImg
+                let transaction=this.myDB.db.transaction(this.bgImg.name,'readwrite').objectStore(this.bgImg.name)
+                let request=transaction.get(obj.id)
+                request.onsuccess=(e)=>{
+                    let data=e.target.result
+                    data.value=obj.value
+                    let update=transaction.put(data)
+                    update.onsuccess=()=>{
+                        this.getData(1)
+                    }
+                }
+                request.onerror=(err)=>{
+                    this.$store.commit('alert','获取本地数据失败！')
+                }
+            }
         },
         mounted() {
+            // 加载本地数据库
+            this.indexedDB()
             // 读取主题
             this.dayOrNight(this.$store.state.theme,1)
         },
@@ -254,7 +323,7 @@ let mainArea=document.getElementsByClassName('content-theme')[0]
                             { value: 'to bottom', text: '从上到下（默认）'},
                             { value: 'to top', text: '从下到上'},
                             { value: 'to right', text: '从左到右'},
-                            { value: 'to left', text: '从左到右'},
+                            { value: 'to left', text: '从右到左'},
                             { value: 'to bottom right', text: '从左上到右下'},
                             { value: 'to top right', text: '从左下到右上'},
                             { value: 'to bottom left', text: '从右上到左下'},

@@ -1,7 +1,7 @@
 let searchVals = '' //搜索框的值
 let searchWindow = 0 //更多搜索窗口
 let windowWidth=0 //窗口大小
-let mainTitle = '业精于勤荒于嬉' //主标题
+let mainTitle = 'Math.pow(1.01,365)' //主标题
 let [showAboutDesc, showAboutEmail, showAboutUpdate,showAboutKey] = [false, false, false,false] // About组件-详情、Email、更新说明、快捷键
 let [theme,diyBg]=[1,''] //主题-1：夜晚（默认），0：白天 自定义背景
 let side = 0 //左侧大导航-1：显示 0：隐藏
