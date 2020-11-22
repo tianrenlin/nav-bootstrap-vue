@@ -7,9 +7,8 @@
 
 ## 项目预览
 
++ [点击进行预览](https://tilin.gitee.io/nav/)
 + 此项目从[gitee导入进来的](https://gitee.com/tilin/nav)
-+ [点击进行预览](https://tilin.gitee.io/nav/).
-
 + 页面响应式
 + 自定义导航
 + 自定义导航对应的内容
@@ -20,3 +19,6 @@
 
 ![输入图片说明](https://images.gitee.com/uploads/images/2020/1122/224036_ca1a5da0_2084888.jpeg "1.jpg")
 ![输入图片说明](https://images.gitee.com/uploads/images/2020/1122/224438_ec7742eb_2084888.jpeg "2.jpg")
++ 图片不显示时可以查看以下图片链接：
+ + https://images.gitee.com/uploads/images/2020/1122/224036_ca1a5da0_2084888.jpeg
+ + https://images.gitee.com/uploads/images/2020/1122/224438_ec7742eb_2084888.jpeg
