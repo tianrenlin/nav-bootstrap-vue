@@ -27,6 +27,11 @@
             "url": "https://mail.qq.com/",
             "logo": "img/web/qqyx.png",
             "des": "QQ邮箱，常用邮箱"
+        }, {
+            "name": "七牛云",
+            "url": "https://portal.qiniu.com/kodo/bucket",
+            "logo": "img/web/qiniu.png",
+            "des": "对象存储 - 空间管理"
         },{
             "name": "百度云盘",
             "url": "https://pan.baidu.com/",
@@ -502,7 +507,7 @@
                     "logo": "img/web/music163.png",
                     "des": "网易云音乐"
                 }, {
-                    "name": "唧唧",
+                    "name": "唧唧[b站资源]",
                     "url": "https://www.jijidown.com/search/",
                     "logo": "img/web/jiji.png",
                     "des": "b站资源下载"
