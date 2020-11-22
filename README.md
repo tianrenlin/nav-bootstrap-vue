@@ -6,6 +6,7 @@
 + npm run serve
 
 ## 项目预览
++ 此项目从[gitee导入进来的](https://gitee.com/tilin/nav)
 [点击进行预览](https://tilin.gitee.io/nav/).
 
 + 页面响应式
