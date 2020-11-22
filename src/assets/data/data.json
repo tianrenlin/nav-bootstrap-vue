@@ -51,6 +51,11 @@
             "url": "http://www.friok.com/",
             "logo": "img/web/friok.png",
             "des": "能够查找到各种度盘资源"
+        }, {
+            "name": "点点文档",
+            "url": "https://www.torrent.org.cn/bd",
+            "logo": "img/web/ddwd.png",
+            "des": "点点搜索，不止文档"
         }]
     }, {
         "title": "社区求索",
@@ -146,10 +151,25 @@
             "logo": "img/web/ele.png",
             "des": "基于vue开发出的UI，布局方便快捷"
         }, {
+            "name": "Vant Weapp",
+            "url": "https://vant-contrib.gitee.io/vant-weapp/#/intro",
+            "logo": "img/web/weapp.png",
+            "des": "Vant提供的微信小程序版本的组件库"
+        }, {
             "name": "BootstrapVue",
             "url": "https://bootstrap-vue.js.org/docs/components",
             "logo": "img/web/bv.png",
             "des": "基于vue开发出的bootstrap，一如既往的布局"
+        }, {
+            "name": "mpvue",
+            "url": "http://mpvue.com/mpvue/",
+            "logo": "img/web/mpvue.png",
+            "des": "基于vue2.x开发出可以运行在小程序环境中的框架"
+        }, {
+            "name": "微信小程序",
+            "url": "https://developers.weixin.qq.com/miniprogram/dev/api/",
+            "logo": "img/web/wxqq.png",
+            "des": "微信小程序官方文档"
         }, {
             "name": "MDN",
             "url": "https://developer.mozilla.org/zh-CN/docs/Web/API",
@@ -209,6 +229,21 @@
             "url": "https://chrome.zzzmh.cn/",
             "logo": "img/web/chrome4.png",
             "des": "Chrome插件库，最近更新的插件"
+        }, {
+            "name": "草料二维码",
+            "url": "https://cli.im/",
+            "logo": "img/web/cli.png",
+            "des": "生成二维码，好用"
+        }, {
+            "name": "TinyPNG",
+            "url": "https://tinypng.com/",
+            "logo": "img/web/tinypng.png",
+            "des": "压缩图片神器，压缩率50~90%"
+        }, {
+            "name": "我的分享",
+            "url": "https://wwa.lanzous.com/b00u0hx2d",
+            "logo": "img/web/mineshare.png",
+            "des": "蓝奏云资源分享，密码：tilin"
         }]
     }, {
         "title": "强悍网站",
@@ -381,11 +416,6 @@
             "logo": "img/web/chinaz.png",
             "des": "站长素材，免费领取"
         }, {
-            "name": "草料二维码",
-            "url": "https://cli.im/",
-            "logo": "img/web/cli.png",
-            "des": "生成二维码，好用"
-        }, {
             "name": "临时邮箱",
             "url": "http://24mail.chacuo.net/",
             "logo": "img/web/24mail.png",
@@ -400,6 +430,16 @@
             "url": "http://www.font168.com/",
             "logo": "img/web/zitixiazai.png",
             "des": "寻找想要的字体"
+        }, {
+            "name": "音乐磁场",
+            "url": "http://www.hifini.com/",
+            "logo": "img/web/hifini.png",
+            "des": "配合云盘插件和蓝奏云插件简直神奇"
+        }, {
+            "name": "Ostagram",
+            "url": "https://www.ostagram.me/lenta?locale=cn",
+            "logo": "img/web/ostagram.png",
+            "des": "把你喜欢的图片渲染成你更喜欢的图片"
         }]
     }],
     "more": [{
@@ -416,10 +456,10 @@
                     "logo": "img/web/github.png",
                     "des": "GitHub"
                 }, {
-                    "name": "电影搜索[优乐]",
-                    "url": "http://jx.youlebe.com/?url=",
-                    "logo": "img/web/youle.png",
-                    "des": "优乐电影搜索"
+                    "name": "知乎",
+                    "url": "https://www.zhihu.com/search?type=content&q=",
+                    "logo": "img/web/zhihu.png",
+                    "des": "有没问题，上知乎~"
                 }, {
                     "name": "MDN",
                     "url": "https://developer.mozilla.org/en-US/search?q=",
@@ -462,10 +502,10 @@
                     "logo": "img/web/music163.png",
                     "des": "网易云音乐"
                 }, {
-                    "name": "bilibili",
-                    "url": "https://search.bilibili.com/all?keyword=",
-                    "logo": "img/web/bili.png",
-                    "des": "b站搜索"
+                    "name": "唧唧",
+                    "url": "https://www.jijidown.com/search/",
+                    "logo": "img/web/jiji.png",
+                    "des": "b站资源下载"
                 }
             ]
         },
@@ -478,8 +518,8 @@
                 "logo": "img/web/chinaz.png",
                 "des": "站长素材"
             }, {
-                "name": "IconFont",
-                "url": "https://www.pngnfont.cn/search/index?searchType=icon&q=",
+                "name": "Iconfont",
+                "url": "https://www.iconfont.cn/search/index?searchType=icon&q=",
                 "logo": "img/web/iconfont.png",
                 "des": "阿里图标库"
             }, {
@@ -493,6 +533,11 @@
                 "logo": "img/web/friok.png",
                 "des": "百度网盘资源"
             }, {
+                "name": "点点文档",
+                "url": "https://www.torrent.org.cn/c/{keyword}/",
+                "logo": "img/web/ddwd.png",
+                "des": "点点搜索，不止文档"
+            },{
                 "name": "Chrome插件",
                 "url": "http://www.cnplugins.com/advsearch.php?q=",
                 "logo": "img/web/chrome.png",

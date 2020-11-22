@@ -23,11 +23,11 @@ try {
 } catch (error) {
     diyBg
 }
-try {
-    if (localStorage.getItem('side')) side = localStorage.getItem('side')
-} catch (error) {
-    side
-}
+// try {
+//     if (localStorage.getItem('side')) side = localStorage.getItem('side')
+// } catch (error) {
+//     side
+// }
 try {
     if (localStorage.getItem('gradOptions')) gradOptions = localStorage.getItem('gradOptions')
 } catch (error) {

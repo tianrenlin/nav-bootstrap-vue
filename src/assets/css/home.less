@@ -93,17 +93,17 @@
     &>div{
       height: 100%;
     }
-    .content-theme{
+    #content-theme{
       position: fixed;
       top: 0;
-      width: 90%;
+      width: 100%;
       bottom: 0;
       z-index: -9;
       background: #0f3854;
       background: @theme;
     }
     @media screen and (max-width: 1070px){
-      .content-theme{width: 100%;}
+      #content-theme{width: 100%;}
     }
     // 首要展示页
     .index_page {
@@ -268,10 +268,10 @@
     a{color: #4689BF!important;font-weight: 700;}
   }
   // 控制大导航状态按钮
-  .side_tip{
+  #side_tip{
     position: fixed;
     top: 34%;
-    left: 177px;
+    left: 0;
     width: 25px;
     height: 55px;
     line-height: 52px;

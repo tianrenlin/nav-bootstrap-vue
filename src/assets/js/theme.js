@@ -9,16 +9,16 @@ let day = `
     }
     .header-class{color: #007ACC${im};background: #fff${im};}
     .body-class{background:#fff${im};color: #007ACC${im};}
-    .side_tip{
+    #side_tip{
         color: rgb(151, 193, 216)${im};
         box-shadow: 0px 0px 8px rgb(145, 204, 236) inset${im};
     }
-    .content-theme{
+    #content-theme{
         ${b_white}${im};
     }
 `
 let night = `
-    .content-theme{
+    #content-theme{
         background:#08262E;background: radial-gradient(#0a2e38 0%, #000000 80%)${im};
     }
     .side_list{
@@ -27,7 +27,7 @@ let night = `
 `
 function diyBg (url){
     return `
-        .content-theme{
+        #content-theme{
             background:url(${url})no-repeat${im};
             background-size:cover${im};
         }
@@ -41,7 +41,7 @@ function diyColor (flag,direction,color1,color2){
         grad=`linear-gradient(${direction},${color1},${color2})${im};`
     }
     return `
-        .content-theme{background:${grad}}
+        #content-theme{background:${grad}}
     `
 }
 export default {

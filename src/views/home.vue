@@ -43,7 +43,7 @@
       </sideMove>
       <!-- 内容区 -->
       <div id="content" class="row" ref="content" @click.stop="$refs.smallNav.show=false">
-        <div class="content-theme"></div>
+        <div id="content-theme"></div>
         <div class="col-md-12 col-sm-12">
           <!-- 网站列表区 -->
           <div ref="list" class="list">
@@ -120,7 +120,7 @@
       </form>
     </b-modal>
     <!-- 开关左侧导航的小边块 -->
-    <div class="side_tip" title="双击键盘左右键快速切换" @click="leftSide(side?0:1)" v-show="showBigSide">
+    <div id="side_tip" title="双击键盘左右键快速切换" @click="leftSide(side?0:1)" v-show="showBigSide">
       <b-icon icon="arrow-bar-left" v-show="side"></b-icon>
       <b-icon icon="arrow-bar-right" v-show="!side"></b-icon>
     </div>
@@ -132,6 +132,7 @@
   import Time from '@/components/time' //时间组件
   import sideMove from '@/components/sideMove' //侧边栏-导航动画
   import Theme from '@/components/theme' //主题组件
+  import Alert from '@/components/alert'
   import {mapState,mapMutations} from 'vuex' //引入vuex辅助函数
   export default {
     data() {
@@ -292,7 +293,6 @@
       },
       // 解决移动端MORE模块更长遮盖问题
       changeSomeStyle() {
-        let t = 800
         let page = document.getElementsByClassName('index_page')[0]
         let box = document.getElementsByClassName('inde_warpper')[0]
         let list = document.getElementsByClassName('list-hook')[1]
@@ -306,11 +306,8 @@
         if (this.searchWindow == 0) {
           list.removeAttribute('style')
           box.removeAttribute('style')
-          t = 999999999
         }
         // 设置定时器反复执行，主要判断MORE是否关闭
-        clearTimeout(timer)
-        let timer = setTimeout(this.changeSomeStyle, t)
       },
       // 移动端导航滚动时阻止页面滚动
       stopEvent(e) {
@@ -320,16 +317,16 @@
       // 左右箭头快速显示/隐藏导航 1-显示 0-隐藏
       leftSide(flag) {
         flag=Number(flag)
-        let theme = document.getElementsByClassName('content-theme')[0]
+        let theme = document.getElementById('content-theme')
         let side = document.getElementById('side')
-        let tip = document.getElementsByClassName('side_tip')[0]
+        let tip = document.getElementById('side_tip')
         let duration=850
         if (flag) { //显示
-          this.animation(tip,'-177px','0px',duration)
+          this.animation(tip,'0px','177px',duration)
           theme.style.width='90%'
           this.changeSide(flag)
         } else { //隐藏
-          this.animation(tip,'0px','-177px',duration)
+          this.animation(tip,'177px','0px',duration)
           theme.style.width='100%'
           this.changeSide(flag)
         }
@@ -450,7 +447,7 @@
         this.toSrollElement(0)
       };
       // 大导航状态
-      this.leftSide(this.side)
+      // this.leftSide(this.side)
       // 键盘按下-设置快捷键
       document.onkeydown = (e) => {
         let k = e.keyCode
@@ -484,11 +481,12 @@
       Time,
       sideMove,
       Theme, //时间组件、侧边栏导航动画组件、主题组件
+      Alert,
       // 组件懒加载
       Animation: () => import('@/components/animation'), //动画效果
       More: () => import('@/components/more'), //更多搜索组件
       About: () => import('@/components/about'), //About组件-右上角相关信息
-      Alert: () => import('@/components/alert'), //Alert组件
+      // Alert: () => import('@/components/alert'), //Alert组件
     }
   }
 </script>
